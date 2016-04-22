@@ -1,25 +1,26 @@
 #include <iostream>
 #include <string>
-#include "objects.h"
-#include "incantations.h"
+#include "realm.h"
+#include "essentials.h"
 
-using namespace std;
-
-int main() {
-	int rnum;
-	string realm1, realm2;
-	cin >> rnum;
+int main(void) {
+	int rnum, magi;
+	std::string realm1, realm2, charm;
+	std::cin >> rnum;
 	realm *realms[rnum];
 	for(int i = 0; i < rnum; i++) {
 		realms[i] = new realm;
-		cin >> realms[i]->charm >> realms[i]->magi;
-		int power[realms[i]->magi];
-		for(int j = 0; j < realms[i]->magi; j++) {
-			cin >> power[j];
+		std::cin >> charm >> magi;
+		realms[i]->setCharm(charm);
+		realms[i]->setNumOfMagi(magi);
+		int power[realms[i]->getNumOfMagi()];
+		for(int j = 0; j < realms[i]->getNumOfMagi(); j++) {
+			std::cin >> power[j];
 		}
-		realms[i]->power = power;
+		realms[i]->setPowerList(power);
 	}
-	cin >> realm1 >> realm2;
+	std::cin >> realm1 >> realm2;
 	//test
-	cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << endl;
+	std::cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << std::endl;
+	return 0;
 }

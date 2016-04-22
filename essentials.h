@@ -1,6 +1,5 @@
-using namespace std;
-#ifndef INCANTATIONS_H
-#define INCANTATIONS_H
+#ifndef ESSENTIALS_H
+#define ESSENTIALS_H
 int minimum(int a, int b, int c) {
 	int min = a;
 	if(b < min) {
@@ -11,7 +10,7 @@ int minimum(int a, int b, int c) {
 	}
 	return min;
 }
-int incantationsNeeded(string str1, string str2, int m, int n) {
+int incantationsNeeded(std::string str1, std::string str2, int m, int n) {
 	int ld[m + 1][n + 1];
 	for(int i = 0; i <= m; i++) {
 		for(int j = 0; j <= n; j++) {
