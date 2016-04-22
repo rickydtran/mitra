@@ -11,8 +11,9 @@ public:
 	std::string getCharm(void);
 	void setNumOfMagi(int num);
 	int getNumOfMagi(void);
-	void setPowerList(int *arr);
+	void setPowerList();
 	int *getPowerList(void);
+	void printRealmData(void);
 	//realm(std::string charm, int magi, int *power);
 };
 
@@ -32,11 +33,23 @@ int realm::getNumOfMagi(void) {
 	return this->magi;
 }
 
-void realm::setPowerList(int *arr) {
-	this->power = arr;
+void realm::setPowerList() {
+	this->power = new int[this->magi];
+	for(int i = 0; i < this->magi; i++) {
+		std::cin >> power[i];
+	}
 }
 
 int *realm::getPowerList(void) {
 	return this->power;
+}
+
+void realm::printRealmData(void) {
+	std::cout << this->charm << std::endl;
+	std::cout << this->magi << std::endl;
+	for(int i = 0; i < this->magi; i++) {
+		std::cout << this->power[i] << ' ';
+	}
+	std::cout << std::endl;
 }
 #endif
