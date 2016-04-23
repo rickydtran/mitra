@@ -1,4 +1,5 @@
 # Mitra the Messenger of Love
+[SPECS](http://rickytran.com:8000/f/fd1c01e620/?dl=1)
 Kael’zak was the last of a bloodline of hunters, living in the depths of the Traan forest. Mundane and
 forlorn his life had become, after losing his family to a herd of rampaging beasts, he had forsaken his
 family’s hunting rituals, living on the fruit of the nearby trees. “He who consumes a beast’s food shall be
