@@ -14,6 +14,7 @@ int main(void) {
 		realms[i]->setCharm(charm);
 		realms[i]->setNumOfMagi(magi);
 		realms[i]->setPowerList();
+		realms[i]->setMaxIncantations();
 	}
 	std::cin >> realm1 >> realm2;
 	//test
