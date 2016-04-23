@@ -91,5 +91,8 @@ Ian Rios
 Dean Schaefer  
 
 # TODO:
-* Weighted Short Path Algorithm 
+* Stop Short Path Algorithm when destination is reached. Right now it computes incantations to 
+all realms.
+* Store pathway from source to destination from from Short Path Algorithm
+* Implement Heap to Lower Time Complexity of Short Path Algorithm
 * Function that computes gems needed from source to destination
