@@ -33,5 +33,6 @@ int main(void) {
 	//std::cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << std::endl;
 	realms.printRealms();
 	realms.pathOfLeastIncantations(ptr1, ptr2);
+	realms.pathOfLeastIncantations(ptr2, ptr1);
 	return 0;
 }
