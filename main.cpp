@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
+#include "helper.h"
 #include "realm.h"
+#include "edge.h"
 #include "multiverse.h"
-#include "essentials.h"
 
 int main(void) {
 	int rnum, magi;
@@ -23,8 +24,9 @@ int main(void) {
 		temp->setNumOfMagi(magi);
 		temp->setPowerList();
 		temp->setMaxIncantations();
-		realms.addRealm(*temp);
+		realms.addRealm(temp);
 	}
+	realms.generateAdjLists();
 	std::cin >> realm1 >> realm2;
 	//std::cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << std::endl;
 	realms.printRealms();
