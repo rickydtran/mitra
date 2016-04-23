@@ -1,5 +1,6 @@
 #ifndef ESSENTIALS_H
 #define ESSENTIALS_H
+
 int minimum(int a, int b, int c) {
 	int min = a;
 	if(b < min) {

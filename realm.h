@@ -15,7 +15,9 @@ public:
 	void setPowerList();
 	int *getPowerList(void);
 	void setMaxIncantations(void);
+	int getMaxIncantations(void);
 	void printRealmData(void);
+	realms();
 };
 
 void realm::setCharm(std::string str) {
@@ -76,6 +78,10 @@ void realm::setMaxIncantations(void) {
 	this->max = maximum;
 }
 
+int realm::getMaxIncantations(void) {
+	return this->max;
+}
+
 void realm::printRealmData(void) {
 	std::cout << this->charm << std::endl;
 	std::cout << this->magi << std::endl;
@@ -85,4 +91,6 @@ void realm::printRealmData(void) {
 	std::cout << std::endl << this->max << std::endl;
 }
 
+realms() {	
+}
 #endif
