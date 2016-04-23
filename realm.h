@@ -17,7 +17,7 @@ public:
 	void setMaxIncantations(void);
 	int getMaxIncantations(void);
 	void printRealmData(void);
-	realms();
+	realm();
 };
 
 void realm::setCharm(std::string str) {
@@ -91,6 +91,6 @@ void realm::printRealmData(void) {
 	std::cout << std::endl << this->max << std::endl;
 }
 
-realms() {	
+realm::realm() {	
 }
 #endif
