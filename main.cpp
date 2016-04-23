@@ -28,7 +28,10 @@ int main(void) {
 	}
 	realms.generateAdjLists();
 	std::cin >> realm1 >> realm2;
+	realm *ptr1 = realms.getRealm(realm1);
+	realm *ptr2 = realms.getRealm(realm2);
 	//std::cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << std::endl;
 	realms.printRealms();
+	realms.pathOfLeastIncantations(ptr1, ptr2);
 	return 0;
 }

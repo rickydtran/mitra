@@ -13,6 +13,8 @@ private:
 	int *power;
 	int max;
 	std::vector<edge*> adjList;
+	bool visited;
+	int dfs;
 public:
 	void setCharm(std::string str);
 	std::string getCharm(void);
@@ -26,6 +28,10 @@ public:
 	bool goTo(std::string str);
 	void addEdge(edge *x);
 	std::vector<edge*> getAdjList(void);
+	void setVisited(bool check);
+	bool getVisited(void);
+	void setDistFromSrc(int num);
+	int getDistFromSrc(void);
 	void printRealmData(void);
 	realm();
 };
@@ -134,6 +140,22 @@ void realm::addEdge(edge *x) {
 
 std::vector<edge*> realm::getAdjList(void) {
 	return this->adjList;
+}
+
+void realm::setVisited(bool check) {
+	this->visited = check;
+}
+
+bool realm::getVisited(void) {
+	return this->visited;
+}
+
+void realm::setDistFromSrc(int num) {
+	this->dfs = num;
+}
+
+int realm::getDistFromSrc(void) {
+	return this->dfs;
 }
 
 void realm::printRealmData(void) {
