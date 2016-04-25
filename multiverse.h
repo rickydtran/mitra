@@ -73,6 +73,7 @@ void multiverse::generateAdjLists(void) {
 				temp->setWeight(weight);
 				//insert gem calculation function here
 				int gems = this->realms[i]->calculateGemsNeeded(weight);
+				//std::cout << gems << std::endl;
 				temp->setGems(gems);				
 				this->realms[i]->addEdge(temp);
 			}
@@ -142,7 +143,7 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 	for(int i = 0; i < temp.size(); i++) {
 		if(!temp[i]->getDest()->getVisited() && (temp[i]->getDest()->getDistFromSrc() > (src->getDistFromSrc() + temp[i]->getWeight()))) {
 			temp[i]->getDest()->setDistFromSrc(src->getDistFromSrc() + temp[i]->getWeight());
-			temp[i]->getDest()->setUsedGems(temp[i]->getGems());			
+			temp[i]->getDest()->setUsedGems(src->getUsedGems() + temp[i]->getGems());			
 		}
 	}
 	for(int i = 0; i < this->realms.size() - 1; i++) {
@@ -152,7 +153,7 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 		for(int j = 0; j < temp.size(); j++) {
 			if(!temp[j]->getDest()->getVisited() && ptr->getDistFromSrc() != INT_MAX && (temp[j]->getDest()->getDistFromSrc() > (ptr->getDistFromSrc() + temp[j]->getWeight()))) {
 				temp[j]->getDest()->setDistFromSrc(ptr->getDistFromSrc() + temp[j]->getWeight());
-				temp[j]->getDest()->setUsedGems(temp[i]->getGems());						
+				temp[j]->getDest()->setUsedGems(ptr->getUsedGems() + temp[j]->getGems());						
 			}			
 		}
 		if(ptr == dest) {

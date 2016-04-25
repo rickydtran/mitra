@@ -3,7 +3,7 @@
 #define REALM_H
 
 //INCLUDED DEPENDENCIES
-#include <string>
+#include <cstring>
 #include <vector>
 
 //FORWARDED DECLARED DEPENDENCIES
@@ -80,34 +80,66 @@ int *realm::getPowerList(void) {
 //CURRENTLY ONLY RETURNS MAX INCANTATIONS. NEED TO RETRIEVE THE BIGGEST SUBSEQUENCE
 //NOT THAT OF IMPORTANCE, IF SUBSEQUENCE ARE OF THE SAME SIZE GET ONE WITH LESS GEMS
 //MODIFY SO POWER VECTOR HOWS MAX SUBSEQUENCE.
+// void realm::setMaxIncantations(void) {
+// 	int maxSubseq[this->magi];
+// 	for(int i = 0; i < this->magi; i++) {
+// 		maxSubseq[i] = 1;
+// 	}
+// 	for(int i = 1; i < this->magi; i++) {
+// 		int currentMax = 1;
+// 		for(int j = 0; j <= i; j++) {
+// 			if(currentMax > maxSubseq[i]) {
+// 				maxSubseq[i] = currentMax;
+// 			}
+// 			if(power[j] > power[i]) {
+// 				continue;
+// 			}
+// 			else {
+// 				currentMax = maxSubseq[j] + 1;
+// 			}
+// 		}
+// 	}
+// 	int maximum = maxSubseq[0];
+// 	for(int i = 1; i < this->magi; i++) {
+// 		if(maxSubseq[i] > maximum) {
+// 			maximum = maxSubseq[i];
+// 		}
+// 		else {
+// 			continue;
+// 		}
+// 	}
+// 	this->max = maximum;
+// }
+
 void realm::setMaxIncantations(void) {
-	int maxSubseq[this->magi];
-	for(int i = 0; i < this->magi; i++) {
-		maxSubseq[i] = 1;
-	}
+	int *tail = new int[this->magi];
+	int *prev = new int[this->magi];
+	int maximum;
+ 	memset(tail, 0, sizeof(tail[0])*this->magi);
+  	memset(prev, 0xFF, sizeof(prev[0])*this->magi);
+	tail[0] = 0;
+	prev[0] = -1;
+	maximum = 1;
 	for(int i = 1; i < this->magi; i++) {
-		int currentMax = 1;
-		for(int j = 0; j <= i; j++) {
-			if(currentMax > maxSubseq[i]) {
-				maxSubseq[i] = currentMax;
-			}
-			if(power[j] > power[i]) {
-				continue;
-			}
-			else {
-				currentMax = maxSubseq[j] + 1;
-			}
+		if(this->power[i] < this->power[tail[0]]) {
+			tail[0] = i;
 		}
-	}
-	int maximum = maxSubseq[0];
-	for(int i = 1; i < this->magi; i++) {
-		if(maxSubseq[i] > maximum) {
-			maximum = maxSubseq[i];
+		else if(this->power[i] > this->power[tail[maximum - 1]]) {
+			prev[i] = tail[maximum - 1];
+			tail[maximum++] = i;
 		}
 		else {
-			continue;
+			int x = binarySearch(this->power, tail, -1, (maximum - 1), this->power[i]);
+			prev[i] = tail[x - 1];
+			tail[x] = i;
 		}
 	}
+	int *lis = new int[maximum - 1];
+	int count = maximum - 1;
+	for(int i = tail[maximum - 1]; i >= 0; i = prev[i]) {
+			lis[count--] = this->power[i];
+	}
+	this->power = lis;
 	this->max = maximum;
 }
 
@@ -146,7 +178,7 @@ int realm::getNeeded(std::string str) {
 //FUNCTION THATRETURNS WHETHER OR NOT YOU CAN GO THE REALM SPECIFIED FROM THE CURRENT REALM OR NOT
 bool realm::goTo(std::string str) {
 	int needed = getNeeded(str);
-	if((needed <= max) && needed != 0) {
+	if((needed <= this->max) && needed != 0) {
 		return true;
 	}	
 	else {
@@ -187,7 +219,7 @@ int realm::getDistFromSrc(void) {
 int realm::calculateGemsNeeded(int weight) {
 	int gems = 0;
 	for(int i = 0; i < weight; i++) {
-		gems += power[i];
+		gems += this->power[i];
 	}
 	return gems;
 }
