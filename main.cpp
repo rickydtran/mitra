@@ -1,3 +1,4 @@
+//INCLUDED DEPENDENCIES
 #include <iostream>
 #include <string>
 #include "helper.h"
@@ -5,19 +6,15 @@
 #include "edge.h"
 #include "multiverse.h"
 
+//MAIN DRIVER FUNCTION
 int main(void) {
 	int rnum, magi;
 	std::string realm1, realm2, charm;
 	std::cin >> rnum;
-	//realm *realms[rnum];
+	//NEW MULTIVERSE
 	multiverse realms;
+	//CREATION OF REALMS BASED OFF HOW MANY REALMS SPECIFIED
 	for(int i = 0; i < rnum; i++) {
-		// realms[i] = new realm;
-		// std::cin >> charm >> magi;
-		// realms[i]->setCharm(charm);
-		// realms[i]->setNumOfMagi(magi);
-		// realms[i]->setPowerList();
-		// realms[i]->setMaxIncantations();
 		realm *temp = new realm;
 		std::cin >> charm >> magi;
 		temp->setCharm(charm);
@@ -26,13 +23,16 @@ int main(void) {
 		temp->setMaxIncantations();
 		realms.addRealm(temp);
 	}
+	//GENERATES ADJACENCY LISTS AND WEIGHTS OF MULTIVERSE
 	realms.generateAdjLists();
 	std::cin >> realm1 >> realm2;
-	realm *ptr1 = realms.getRealm(realm1);
-	realm *ptr2 = realms.getRealm(realm2);
-	//std::cout << incantationsNeeded(realm1, realm2, realm1.length(), realm2.length()) << std::endl;
+	//REALM POINTER DATA RETRIEVAL
+	realm *src = realms.getRealm(realm1);
+	realm *dest = realms.getRealm(realm2);
+	//PRINTS THE TEST DATA OF THE REALMS
 	realms.printRealms();
-	realms.pathOfLeastIncantations(ptr1, ptr2);
-	realms.pathOfLeastIncantations(ptr2, ptr1);
+	//FINDS PATH OF LEAST INCANTATIONS FROM SOURCE TO DESTINATION AND THEN BACK TO SOURCE
+	realms.pathOfLeastIncantations(src, dest);
+	realms.pathOfLeastIncantations(dest, src);
 	return 0;
 }

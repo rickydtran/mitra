@@ -1,11 +1,15 @@
+//INCLUDE GUARD
 #ifndef REALM_H
 #define REALM_H
 
+//INCLUDED DEPENDENCIES
 #include <string>
 #include <vector>
 
+//FORWARDED DECLARED DEPENDENCIES
 class edge;
 
+//REALM OBJECT. FANCY WORD OF THE USE OF A NODE
 class realm {
 private:
 	std::string charm;
@@ -36,22 +40,27 @@ public:
 	realm();
 };
 
+//FUNCTION THAT SETS THE CHARM OF A REALM
 void realm::setCharm(std::string str) {
 	this->charm = str;
 }
 
+//FUNCTION THAT RETRIEVES THE CHARM OF A REALM
 std::string realm::getCharm(void) {
 	return this->charm;
 }
 
+//FUNCTION USED TO SET THE NUMBER OF MAGIS IN A REALM
 void realm::setNumOfMagi(int num) {
 	this->magi = num;
 }
 
+//FUNCTION USED TO GET THE NUMBER OF MAGIS IN A REALM
 int realm::getNumOfMagi(void) {
 	return this->magi;
 }
 
+//FUNCTION USED TO SET THE LIST OF POWERS FOR THE MAGIS OF A REALM
 void realm::setPowerList(void) {
 	this->power = new int[this->magi];
 	for(int i = 0; i < this->magi; i++) {
@@ -59,10 +68,14 @@ void realm::setPowerList(void) {
 	}
 }
 
+//FUNCTION TO GET THE LIST OF POWERS OF THE MAGIS OF A REALM
 int *realm::getPowerList(void) {
 	return this->power;
 }
 
+
+//CURRENTLY ONLY RETURNS MAX INCANTATIONS. NEED TO RETRIEVE THE BIGGEST SUBSEQUENCE
+//NOT THAT OF IMPORTANCE, IF SUBSEQUENCE ARE OF THE SAME SIZE GET ONE WITH LESS GEMS
 void realm::setMaxIncantations(void) {
 	int maxSubseq[this->magi];
 	for(int i = 0; i < this->magi; i++) {
@@ -94,10 +107,12 @@ void realm::setMaxIncantations(void) {
 	this->max = maximum;
 }
 
+//FUNCTION USED TO GET THE MAX NUMBER OF INCANTATIONS THAT CAN BE DONE IN A REALM
 int realm::getMaxIncantations(void) {
 	return this->max;
 }
 
+//FUNCTION THAT RETURNS THE AMOUNT OF INCANTATION NEEDED TO GO FROM CURRENT REALM TO ONE SPECIFIED
 int realm::getNeeded(std::string str) {
 	std::string src, dest;
 	src = this->charm;
@@ -124,6 +139,7 @@ int realm::getNeeded(std::string str) {
 	return ld[m][n];
 }
 
+//FUNCTION THATRETURNS WHETHER OR NOT YOU CAN GO THE REALM SPECIFIED FROM THE CURRENT REALM OR NOT
 bool realm::goTo(std::string str) {
 	int needed = getNeeded(str);
 	if((needed <= max) && needed != 0) {
@@ -134,30 +150,37 @@ bool realm::goTo(std::string str) {
 	}
 }
 
+//FUNCTION THAT ADDS AN EDGE TO THE REALM'S ADJACENCY LIST
 void realm::addEdge(edge *x) {
 	this->adjList.push_back(x);
 }
 
+//FUNCTION THAT RETURNS THE REALM'S ADJACENCY LIST
 std::vector<edge*> realm::getAdjList(void) {
 	return this->adjList;
 }
 
+//FUNCTION USED TO SET WHETHER OR NOT THE REALM HAS BEEN VISITED OR NOT FOR PATHING ALGORITHM
 void realm::setVisited(bool check) {
 	this->visited = check;
 }
 
+//FUNCTION USED TO CHECK IF REALM HAS BEEN VISITED YET
 bool realm::getVisited(void) {
 	return this->visited;
 }
 
+//FUNCTION TO SET THE DISTANCE FROM SOURCE NODE FOR PATHING ALGORITHM
 void realm::setDistFromSrc(int num) {
 	this->dfs = num;
 }
 
+//RETRIEVES THE DISTANCE FROM THE SOURCE NODE
 int realm::getDistFromSrc(void) {
 	return this->dfs;
 }
 
+//PRINT TEST OF REALMS DATA
 void realm::printRealmData(void) {
 	std::cout << this->charm << std::endl;
 	std::cout << this->magi << std::endl;
