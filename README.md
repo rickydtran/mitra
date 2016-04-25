@@ -1,10 +1,10 @@
 # Mitra the Messenger of Love
-[SPECS](http://rickytran.com:8000/f/fd1c01e620/?dl=1)  
+[CLICK TO SEE PROJECT SPECIFICATIONS](http://rickytran.com:8000/f/fd1c01e620/?dl=1)  
 
 # Table of Contents
-<a name="group-members"></a>Group Members
-<a name="todo"></a>Things to Do
-<a name="lore"></a>Lore
+[Group Members](#team-members)  
+[Things to Do](#todo)  
+[Lore](#lore)  
 
 # <a name="group-members"></a>Group Members
 * "Ricky Tran" <rickydtran@ufl.edu>
