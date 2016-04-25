@@ -91,7 +91,6 @@ Ian Rios
 Dean Schaefer  
 
 # TODO:
-TODO:
 *Stop Short Path Algorithm when destination is reached. Right now it computes incantations to all realms. Source to all destination
 *Store pathway from source to destination from from Short Path Algorithm
 *Implement Heap to Lower Time Complexity of Short Path Algorithm
