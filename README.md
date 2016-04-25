@@ -96,3 +96,5 @@ all realms.
 * Store pathway from source to destination from from Short Path Algorithm
 * Implement Heap to Lower Time Complexity of Short Path Algorithm
 * Function that computes gems needed from source to destination
+* Use hash map for string lookup pointer retrieval. Reduces lookup from 
+O(n) to constant time.
