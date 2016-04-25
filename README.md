@@ -1,5 +1,25 @@
 # Mitra the Messenger of Love
 [SPECS](http://rickytran.com:8000/f/fd1c01e620/?dl=1)  
+
+# Table of Contents
+<a name="group-members"></a>Group Members
+<a name="todo"></a>Things to Do
+<a name="lore"></a>Lore
+
+# <a name="group-members"></a>Group Members
+* "Ricky Tran" <rickydtran@ufl.edu>
+* "Jenny Tong" <jennytong@ufl.edu>
+* "Ian Rios" <lolersa@ufl.edu>
+* "Richard Schaefer" <dean1995@ufl.edu>
+
+# <a name="todo"></a>TODO
+* Stop Short Path Algorithm when destination is reached. Right now it computes incantations to all realms. Source to all destination
+* Store pathway from source to destination from from Short Path Algorithm
+* Implement Heap to Lower Time Complexity of Short Path Algorithm
+* Modify find max subsequence function to actually return the subsequence
+* ~~Use hash map for string lookup pointer retrieval. Reduces lookup from O(n) to constant time~~
+
+# <a name="lore"></a>LORE
 Kael’zak was the last of a bloodline of hunters, living in the depths of the Traan forest. Mundane and
 forlorn his life had become, after losing his family to a herd of rampaging beasts, he had forsaken his
 family’s hunting rituals, living on the fruit of the nearby trees. “He who consumes a beast’s food shall be
@@ -83,16 +103,3 @@ back from there to this realm. For each way, you have to tell me the least numbe
 and the number of gems you will need throughout the way.”
 And so, Kael’zak the hunter, started to learn the arts of data structures and algorithms in order to give the
 correct answer to Mitra the messenger.
-
-# Group Members
-Ricky Tran  
-Jenny Tong  
-Ian Rios  
-Dean Schaefer  
-
-# TODO:
-* Stop Short Path Algorithm when destination is reached. Right now it computes incantations to all realms. Source to all destination
-* Store pathway from source to destination from from Short Path Algorithm
-* Implement Heap to Lower Time Complexity of Short Path Algorithm
-* Modify find max subsequence function to actually return the subsequence
-* ~~Use hash map for string lookup pointer retrieval. Reduces lookup from O(n) to constant time~~
