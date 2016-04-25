@@ -19,6 +19,7 @@ private:
 	std::vector<edge*> adjList;
 	bool visited;
 	int dfs;
+	int used;
 public:
 	void setCharm(std::string str);
 	std::string getCharm(void);
@@ -36,6 +37,9 @@ public:
 	bool getVisited(void);
 	void setDistFromSrc(int num);
 	int getDistFromSrc(void);
+	int calculateGemsNeeded(int weight);
+	void setUsedGems(int num);
+	int getUsedGems(void);
 	void printRealmData(void);
 	realm();
 };
@@ -73,9 +77,9 @@ int *realm::getPowerList(void) {
 	return this->power;
 }
 
-
 //CURRENTLY ONLY RETURNS MAX INCANTATIONS. NEED TO RETRIEVE THE BIGGEST SUBSEQUENCE
 //NOT THAT OF IMPORTANCE, IF SUBSEQUENCE ARE OF THE SAME SIZE GET ONE WITH LESS GEMS
+//MODIFY SO POWER VECTOR HOWS MAX SUBSEQUENCE.
 void realm::setMaxIncantations(void) {
 	int maxSubseq[this->magi];
 	for(int i = 0; i < this->magi; i++) {
@@ -178,6 +182,22 @@ void realm::setDistFromSrc(int num) {
 //RETRIEVES THE DISTANCE FROM THE SOURCE NODE
 int realm::getDistFromSrc(void) {
 	return this->dfs;
+}
+
+int realm::calculateGemsNeeded(int weight) {
+	int gems = 0;
+	for(int i = 0; i < weight; i++) {
+		gems += power[i];
+	}
+	return gems;
+}
+
+void realm::setUsedGems(int num) {
+	this->used = num;
+}
+
+int realm::getUsedGems(void) {
+	return this->used;
 }
 
 //PRINT TEST OF REALMS DATA

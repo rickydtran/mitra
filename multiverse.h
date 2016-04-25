@@ -23,7 +23,7 @@ public:
 	void printRealms(void);
 	void goToTest(void);
 	realm *minDistance(void);
-	void pathOfLeastIncantations(realm *src, realm *dest);
+	int pathOfLeastIncantations(realm *src, realm *dest);
 	multiverse();
 };
 
@@ -69,6 +69,9 @@ void multiverse::generateAdjLists(void) {
 				temp->setDest(this->realms[j]);
 				int weight = this->realms[i]->getNeeded(this->realms[j]->getCharm());
 				temp->setWeight(weight);
+				//insert gem calculation function here
+				int gems = this->realms[i]->calculateGemsNeeded(weight);
+				temp->setGems(gems);				
 				this->realms[i]->addEdge(temp);
 			}
 			else {
@@ -125,10 +128,11 @@ realm *multiverse::minDistance(void) {
 }
 
 //CURRENTLY SOURCE TO ALL DESTINATIONS. NEEDS TO BE REVISED TO SOURCE TO DESTINATION
-void multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
+int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 	for(int i = 0; i < this->realms.size(); i++) {
 		this->realms[i]->setVisited(false);
 		this->realms[i]->setDistFromSrc(INT_MAX);
+		this->realms[i]->setUsedGems(0);
 	}
 	src->setDistFromSrc(0);
 	src->setVisited(true);
@@ -136,22 +140,28 @@ void multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 	for(int i = 0; i < temp.size(); i++) {
 		if(!temp[i]->getDest()->getVisited() && (temp[i]->getDest()->getDistFromSrc() > (src->getDistFromSrc() + temp[i]->getWeight()))) {
 			temp[i]->getDest()->setDistFromSrc(src->getDistFromSrc() + temp[i]->getWeight());
+			temp[i]->getDest()->setUsedGems(temp[i]->getGems());			
 		}
 	}
 	for(int i = 0; i < this->realms.size() - 1; i++) {
 		realm *ptr = minDistance();
-		ptr->setVisited(true);
+		ptr->setVisited(true);		
 		temp = ptr->getAdjList();
 		for(int j = 0; j < temp.size(); j++) {
 			if(!temp[j]->getDest()->getVisited() && ptr->getDistFromSrc() != INT_MAX && (temp[j]->getDest()->getDistFromSrc() > (ptr->getDistFromSrc() + temp[j]->getWeight()))) {
 				temp[j]->getDest()->setDistFromSrc(ptr->getDistFromSrc() + temp[j]->getWeight());
+				temp[j]->getDest()->setUsedGems(temp[i]->getGems());						
 			}			
 		}
+		if(ptr == dest) {
+			return ptr->getDistFromSrc();
+			break;
+		}
+		else {
+			continue;
+		}
+		return INT_MAX;
 	}
-	for(int i = 0; i < realms.size(); i++) {
-		std::cout << realms[i]->getDistFromSrc() << ' ';
-	}
-	std::cout << std::endl;
 }
 
 multiverse::multiverse() {	

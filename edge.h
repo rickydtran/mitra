@@ -10,11 +10,14 @@ class edge {
 private:
 	realm *dest;
 	int weight;
+	int gems;
 public:
 	void setDest(realm *x);
 	realm *getDest(void);
 	void setWeight(int num);
 	int getWeight(void);
+	void setGems(int num);
+	int getGems(void);
 };
 
 //FUNCTION THAT SETS THE DESTINATION POINTER OF THE EDGE
@@ -37,4 +40,11 @@ int edge::getWeight() {
 	return this->weight;
 }
 
+void edge::setGems(int num) {
+	this->gems = num;
+}
+
+int edge::getGems(void) {
+	return this->gems;
+}
 #endif

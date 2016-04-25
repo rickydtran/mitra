@@ -30,9 +30,20 @@ int main(void) {
 	realm *src = realms.getRealm(realm1);
 	realm *dest = realms.getRealm(realm2);
 	//PRINTS THE TEST DATA OF THE REALMS
-	realms.printRealms();
+	//realms.printRealms();
 	//FINDS PATH OF LEAST INCANTATIONS FROM SOURCE TO DESTINATION AND THEN BACK TO SOURCE
-	realms.pathOfLeastIncantations(src, dest);
-	realms.pathOfLeastIncantations(dest, src);
+	int std = realms.pathOfLeastIncantations(src, dest);
+	int stdgems = dest->getUsedGems();
+	int dts = realms.pathOfLeastIncantations(dest, src);
+	int dtsgems = src->getUsedGems();		
+	if(std == INT_MAX) {
+		std::cout << "IMPOSSIBLE" << std::endl << dts << ' ' << dtsgems << std::endl;		
+	}
+	else if(dts == INT_MAX) {
+		std::cout << std << ' ' << stdgems << std::endl << "IMPOSSIBLE" << std::endl;
+	}
+	else {
+		std::cout << std << ' ' << stdgems << std::endl << dts << ' ' << dtsgems << std::endl;		
+	}
 	return 0;
 }
