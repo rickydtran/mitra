@@ -47,6 +47,7 @@ OLD FUNCTION THAT GOT DATA IN 0(N) BY LINEARLY SEARCHING FOR THE STRING
 // 	}
 // }
 
+//NEW GET FUNCTION THAT LOOKS UP STRING KEY IN HASHMAP AND RETURNS THE POINTER TO THE REALM
 realm *multiverse::getRealm(std::string str) {
 	std::unordered_map<std::string, realm*>::iterator it = lookup.find(str);
 	if(it == lookup.end()) {
@@ -61,6 +62,7 @@ realm *multiverse::getRealm(std::string str) {
 //TO THE ABILITY TO GO THE OTHER REALMS IS DEPENDENT UPON THE NUMBER OF CHANGES TO A CHARM OF THE
 //SOURCE REALM TO DESTINATION REALM AS WELL AS THE NUMBER OF CHANGES THAT COULD BE MADE IN A REALM
 //IS DEPENDENT UPON THE MAX SUBSEQUENCE IN THE POWER OF THE MAGIS
+//ADDED CALCULATION NEEDED ON THE EDGE TO GO FROM ONE REALM TO ANOTHER
 void multiverse::generateAdjLists(void) {
 	for(int i = 0; i < this->realms.size(); i++) {
 		for(int j = 0; j < this->realms.size(); j++) {
