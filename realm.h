@@ -15,7 +15,9 @@ private:
 	std::string charm;
 	int magi;
 	int *power;
+	int *subseq;
 	int max;
+	int needed;
 	std::vector<edge*> adjList;
 	bool visited;
 	int dfs;
@@ -29,7 +31,8 @@ public:
 	int *getPowerList(void);
 	void setMaxIncantations(void);
 	int getMaxIncantations(void);
-	int getNeeded(std::string str);
+	void setNeeded(std::string str);
+	int getNeeded(void);
 	bool goTo(std::string str);
 	void addEdge(edge *x);
 	std::vector<edge*> getAdjList(void);
@@ -134,12 +137,12 @@ void realm::setMaxIncantations(void) {
 			tail[x] = i;
 		}
 	}
-	int *lis = new int[maximum - 1];
 	int count = maximum - 1;
+
+	this->subseq = new int[maximum];
 	for(int i = tail[maximum - 1]; i >= 0; i = prev[i]) {
-			lis[count--] = this->power[i];
-	}
-	this->power = lis;
+		subseq[count--] = this->power[i];
+	}	
 	this->max = maximum;
 }
 
@@ -149,7 +152,7 @@ int realm::getMaxIncantations(void) {
 }
 
 //FUNCTION THAT RETURNS THE AMOUNT OF INCANTATION NEEDED TO GO FROM CURRENT REALM TO ONE SPECIFIED
-int realm::getNeeded(std::string str) {
+void realm::setNeeded(std::string str) {
 	std::string src, dest;
 	src = this->charm;
 	dest = str;
@@ -172,13 +175,17 @@ int realm::getNeeded(std::string str) {
 			}
 		}
 	}
-	return ld[m][n];
+	this->needed = ld[m][n];
+}
+
+int realm::getNeeded(void) {
+	return this->needed;
 }
 
 //FUNCTION THATRETURNS WHETHER OR NOT YOU CAN GO THE REALM SPECIFIED FROM THE CURRENT REALM OR NOT
 bool realm::goTo(std::string str) {
-	int needed = getNeeded(str);
-	if((needed <= this->max) && needed != 0) {
+	setNeeded(str);
+	if((this->needed <= this->max) && this->needed != 0) {
 		return true;
 	}	
 	else {
@@ -219,7 +226,7 @@ int realm::getDistFromSrc(void) {
 int realm::calculateGemsNeeded(int weight) {
 	int gems = 0;
 	for(int i = 0; i < weight; i++) {
-		gems += this->power[i];
+		gems += this->subseq[i];
 	}
 	return gems;
 }
@@ -234,13 +241,22 @@ int realm::getUsedGems(void) {
 
 //PRINT TEST OF REALMS DATA
 void realm::printRealmData(void) {
-	std::cout << this->charm << std::endl;
-	std::cout << this->magi << std::endl;
+	std::cout << "CHARM: " << this->charm << std::endl;
+	std::cout << "NUM OF MAGI: " << this->magi << std::endl;
+	std::cout << "[LIST OF POWERS IN ORDER OF CONFRONTATION]" << std::endl;
 	for(int i = 0; i < this->magi; i++) {
 		std::cout << this->power[i] << ' ';
 	}
-	std::cout << std::endl << this->max << std::endl;
-	for(int i = 0; i < this->adjList.size(); i++) {
+	std::cout << std::endl << "MAX: " << this->max << std::endl;
+	std::cout << "[LIST OF MAX SUBSEQUENCE FROM LIST OF POWERS]" << std::endl;
+	for(int i = 0; i < this->max; i++) {
+		std::cout << this->subseq[i] << ' ';
+	}
+	std::cout << std::endl << "[ADJLIST POINTERS]" << std::endl;
+	if(this->adjList.size() == 0) {
+		std::cout << "no pointer data. empty list";
+	}
+ 	for(int i = 0; i < this->adjList.size(); i++) {
 		std::cout << this->adjList[i] << ' ';
 	}
 	std::cout << std::endl;

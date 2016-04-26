@@ -1,0 +1,43 @@
+CURRENT STANDARDS AFTER
+NOT CONSTANTLY CHECKING FOR NEEDED
+   TEST 1
+
+real    0m0.038s
+user    0m0.000s
+sys     0m0.015s
+DIFFCHK: [PASS]
+
+   TEST 2
+
+real    0m0.029s
+user    0m0.000s
+sys     0m0.015s
+DIFFCHK: [PASS]
+
+   TEST 3
+
+real    0m0.032s
+user    0m0.015s
+sys     0m0.015s
+DIFFCHK: [PASS]
+
+   TEST 4
+
+real    0m0.029s
+user    0m0.000s
+sys     0m0.015s
+DIFFCHK: [PASS]
+
+   TEST 5
+
+real    0m0.028s
+user    0m0.000s
+sys     0m0.015s
+DIFFCHK: [PASS]
+
+   TEST 6
+
+real    0m0.099s
+user    0m0.078s
+sys     0m0.000s
+DIFFCHK: [PASS]

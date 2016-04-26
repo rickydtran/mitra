@@ -1,11 +1,12 @@
 //INCLUDE GUARD
 #ifndef MULTIVERSE_H
 #define MULTIVERSE_H
+#define INT_MAX 2147483647
 
 //INCLUDED DEPENDENCIES
 #include <vector>
+#
 #include <unordered_map>
-#include <limits.h>
 
 //FORWARD DECLARED DEPENDENCIES
 class realm;
@@ -69,7 +70,7 @@ void multiverse::generateAdjLists(void) {
 			if(this->realms[i]->goTo(this->realms[j]->getCharm()) == true) {
 				edge *temp = new edge;
 				temp->setDest(this->realms[j]);
-				int weight = this->realms[i]->getNeeded(this->realms[j]->getCharm());
+				int weight = this->realms[i]->getNeeded();
 				temp->setWeight(weight);
 				//insert gem calculation function here
 				int gems = this->realms[i]->calculateGemsNeeded(weight);
@@ -87,8 +88,13 @@ void multiverse::generateAdjLists(void) {
 //PRINT TEST FUNCTION THAT PRINTS ALL THE DATA IN THE REALMS OF THE MULTIVERSE
 void multiverse::printRealms(void) {
 	for(int i = 0; i < this->realms.size(); i++) {
+		std::cout << std::endl << "{REALM " << i << '}' << std::endl;
 		this->realms[i]->printRealmData();
 		std::vector<edge*> temp = this->realms[i]->getAdjList();
+		std::cout << "[FROM:TO:WEIGHT]" << std::endl;
+		if(temp.size() == 0) {
+			std::cout << "nowhere to go";
+		}		
 		for(int j = 0; j < temp.size(); j++) {
 			std::cout << this->realms[i]->getCharm() << ':' << temp[j]->getDest()->getCharm() << ':' << temp[j]->getWeight() << ' ';
 		}
