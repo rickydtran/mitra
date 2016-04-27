@@ -79,10 +79,11 @@ void realm::setPowerList(void) {
 int *realm::getPowerList(void) {
 	return this->power;
 }
-
-//CURRENTLY ONLY RETURNS MAX INCANTATIONS. NEED TO RETRIEVE THE BIGGEST SUBSEQUENCE
-//NOT THAT OF IMPORTANCE, IF SUBSEQUENCE ARE OF THE SAME SIZE GET ONE WITH LESS GEMS
-//MODIFY SO POWER VECTOR HOWS MAX SUBSEQUENCE.
+/*
+CURRENTLY ONLY RETURNS MAX INCANTATIONS. NEED TO RETRIEVE THE BIGGEST SUBSEQUENCE
+NOT THAT OF IMPORTANCE, IF SUBSEQUENCE ARE OF THE SAME SIZE GET ONE WITH LESS GEMS
+MODIFY TO GET THE ACTUAL SUBSEQUENCE.
+*/
 // void realm::setMaxIncantations(void) {
 // 	int maxSubseq[this->magi];
 // 	for(int i = 0; i < this->magi; i++) {
@@ -114,6 +115,11 @@ int *realm::getPowerList(void) {
 // 	this->max = maximum;
 // }
 
+/*
+NEW SET MAX INCANTATIONS FUNCTION. UNLIKE PREVIOUS THIS USES A BINARY SEARCH TREE
+TO FIND THE LONGEST INCRESASING SUBSEQUENCE. SETS MAX VALUE TO THIS AS WELL
+AS STORE THE SUBSEQUENCE INTO AN ARRAY FOR USE LATER TO CALCULATE GEMS
+*/
 void realm::setMaxIncantations(void) {
 	int *tail = new int[this->magi];
 	int *prev = new int[this->magi];
@@ -151,7 +157,7 @@ int realm::getMaxIncantations(void) {
 	return this->max;
 }
 
-//FUNCTION THAT RETURNS THE AMOUNT OF INCANTATION NEEDED TO GO FROM CURRENT REALM TO ONE SPECIFIED
+//FUNCTION THAT SETS THE AMOUNT OF INCANTATION NEEDED TO GO FROM CURRENT REALM TO ONE SPECIFIED
 void realm::setNeeded(std::string str) {
 	std::string src, dest;
 	src = this->charm;
@@ -178,6 +184,8 @@ void realm::setNeeded(std::string str) {
 	this->needed = ld[m][n];
 }
 
+//RETURNS NEEDED AMOUNT OF GEMS NEEDED TO GO TO REALM. 
+//STORED LOCALLY SO DON'T NEED TO UNNECESSARILY CALL SET NEED FUNCTION
 int realm::getNeeded(void) {
 	return this->needed;
 }
@@ -218,11 +226,12 @@ void realm::setDistFromSrc(int num) {
 	this->dfs = num;
 }
 
-//RETRIEVES THE DISTANCE FROM THE SOURCE NODE
+//RETRIEVES THE DISTANCE FROM THE SOURCE REALM
 int realm::getDistFromSrc(void) {
 	return this->dfs;
 }
 
+//CALCULATES GEMS NECESSSARY TO GO FROM ONE REALM TO ANOTHER
 int realm::calculateGemsNeeded(int weight) {
 	int gems = 0;
 	for(int i = 0; i < weight; i++) {
@@ -231,10 +240,12 @@ int realm::calculateGemsNeeded(int weight) {
 	return gems;
 }
 
+//SETS AMOUNT OF USED GEMS USED SO FAR
 void realm::setUsedGems(int num) {
 	this->used = num;
 }
 
+//RETURNS AMOUNT OF GEMS USED ON PATH SO FAR
 int realm::getUsedGems(void) {
 	return this->used;
 }
@@ -256,7 +267,7 @@ void realm::printRealmData(void) {
 	if(this->adjList.size() == 0) {
 		std::cout << "no pointer data. empty list";
 	}
- 	for(int i = 0; i < this->adjList.size(); i++) {
+ 	for(unsigned int i = 0; i < this->adjList.size(); i++) {
 		std::cout << this->adjList[i] << ' ';
 	}
 	std::cout << std::endl;

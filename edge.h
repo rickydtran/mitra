@@ -40,10 +40,12 @@ int edge::getWeight() {
 	return this->weight;
 }
 
+//FUNCTION USED TO SET AMOUNT OF GEMS ON EDGE
 void edge::setGems(int num) {
 	this->gems = num;
 }
 
+//FUNCTION USED TO GET AMOUNT OF GEMS ON EDGE
 int edge::getGems(void) {
 	return this->gems;
 }

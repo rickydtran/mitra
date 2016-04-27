@@ -37,7 +37,7 @@ void multiverse::addRealm(realm *x) {
 OLD FUNCTION THAT GOT DATA IN 0(N) BY LINEARLY SEARCHING FOR THE STRING
 */
 // realm *multiverse::getRealm(std::string str) {
-// 	for(int i = 0; i < this->realms.size(); i++) {
+// 	for(unsigned int i = 0; i < this->realms.size(); i++) {
 // 		if(this->realms[i]->getCharm() == str) {
 // 			return realms[i];
 // 		}
@@ -52,6 +52,7 @@ realm *multiverse::getRealm(std::string str) {
 	std::unordered_map<std::string, realm*>::iterator it = lookup.find(str);
 	if(it == lookup.end()) {
 		std::cout << "BRUH" << std::endl;
+		return NULL;
 	}
 	else {
 		return it->second;
@@ -65,8 +66,8 @@ IS DEPENDENT UPON THE MAX SUBSEQUENCE IN THE POWER OF THE MAGIS
 ADDED CALCULATION OF GEMS NEEDED ON THE EDGE TO GO FROM ONE REALM TO ANOTHER
 */
 void multiverse::generateAdjLists(void) {
-	for(int i = 0; i < this->realms.size(); i++) {
-		for(int j = 0; j < this->realms.size(); j++) {
+	for(unsigned int i = 0; i < this->realms.size(); i++) {
+		for(unsigned int j = 0; j < this->realms.size(); j++) {
 			if(this->realms[i]->goTo(this->realms[j]->getCharm()) == true) {
 				edge *temp = new edge;
 				temp->setDest(this->realms[j]);
@@ -87,7 +88,7 @@ void multiverse::generateAdjLists(void) {
 
 //PRINT TEST FUNCTION THAT PRINTS ALL THE DATA IN THE REALMS OF THE MULTIVERSE
 void multiverse::printRealms(void) {
-	for(int i = 0; i < this->realms.size(); i++) {
+	for(unsigned int i = 0; i < this->realms.size(); i++) {
 		std::cout << std::endl << "{REALM " << i << '}' << std::endl;
 		this->realms[i]->printRealmData();
 		std::vector<edge*> temp = this->realms[i]->getAdjList();
@@ -95,7 +96,7 @@ void multiverse::printRealms(void) {
 		if(temp.size() == 0) {
 			std::cout << "nowhere to go";
 		}		
-		for(int j = 0; j < temp.size(); j++) {
+		for(unsigned int j = 0; j < temp.size(); j++) {
 			std::cout << this->realms[i]->getCharm() << ':' << temp[j]->getDest()->getCharm() << ':' << temp[j]->getWeight() << ' ';
 		}
 		std::cout << std::endl;	
@@ -105,8 +106,8 @@ void multiverse::printRealms(void) {
 //PRINT TEST FUNCTION THAT IS USED TO SEE IF THE GOTO FUNCTION WORKS PROPERLY. USED TO SEE IF A REALM CAN BE REACH
 //FROM CURRENT REALM. IF TRUE THEN YOU CAN GO THE THE DESIRED REALM FROM THE CURRENT REALM
 void multiverse::goToTest(void) {
-	for(int i = 0; i < this->realms.size(); i++) {
-		for(int j = 0; j < this->realms.size(); j++) {
+	for(unsigned int i = 0; i < this->realms.size(); i++) {
+		for(unsigned int j = 0; j < this->realms.size(); j++) {
 			std::cout << this->realms[i]->goTo(this->realms[j]->getCharm());
 		}
 		std::cout << std::endl;
@@ -124,7 +125,7 @@ TODO: MODIFY WITH THE USE OF A BINARY HEAP TO REDUCE TIME COMPLEXITY TO O(N+ELOG
 realm *multiverse::minDistance(void) {
 	int min = INT_MAX;
 	realm *ptr = NULL;
-	for(int i = 0; i < this->realms.size(); i++) {
+	for(unsigned int i = 0; i < this->realms.size(); i++) {
 		if(this->realms[i]->getVisited() == false && this->realms[i]->getDistFromSrc() <= min) {
 			min = this->realms[i]->getDistFromSrc();
 			ptr = realms[i];
@@ -138,7 +139,7 @@ realm *multiverse::minDistance(void) {
 
 //FUNCTION THAT GETS THE LEAST NUMBER OF INCANTATIONS FROM ONE REALM TO ANOTHER. IF IMPOSSIBLE RETURNS INT_MAX
 int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
-	for(int i = 0; i < this->realms.size(); i++) {
+	for(unsigned int i = 0; i < this->realms.size(); i++) {
 		this->realms[i]->setVisited(false);
 		this->realms[i]->setDistFromSrc(INT_MAX);
 		this->realms[i]->setUsedGems(0);
@@ -146,17 +147,17 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 	src->setDistFromSrc(0);
 	src->setVisited(true);
 	std::vector<edge*> temp = src->getAdjList();
-	for(int i = 0; i < temp.size(); i++) {
+	for(unsigned int i = 0; i < temp.size(); i++) {
 		if(!temp[i]->getDest()->getVisited() && (temp[i]->getDest()->getDistFromSrc() > (src->getDistFromSrc() + temp[i]->getWeight()))) {
 			temp[i]->getDest()->setDistFromSrc(src->getDistFromSrc() + temp[i]->getWeight());
 			temp[i]->getDest()->setUsedGems(src->getUsedGems() + temp[i]->getGems());			
 		}
 	}
-	for(int i = 0; i < this->realms.size() - 1; i++) {
+	for(unsigned int i = 0; i < this->realms.size() - 1; i++) {
 		realm *ptr = minDistance();
 		ptr->setVisited(true);		
 		temp = ptr->getAdjList();
-		for(int j = 0; j < temp.size(); j++) {
+		for(unsigned int j = 0; j < temp.size(); j++) {
 			if(!temp[j]->getDest()->getVisited() && ptr->getDistFromSrc() != INT_MAX && (temp[j]->getDest()->getDistFromSrc() > (ptr->getDistFromSrc() + temp[j]->getWeight()))) {
 				temp[j]->getDest()->setDistFromSrc(ptr->getDistFromSrc() + temp[j]->getWeight());
 				temp[j]->getDest()->setUsedGems(ptr->getUsedGems() + temp[j]->getGems());						
@@ -164,13 +165,12 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 		}
 		if(ptr == dest) {
 			return ptr->getDistFromSrc();
-			break;
 		}
 		else {
 			continue;
 		}
-		return INT_MAX;
 	}
+	return INT_MAX;	
 }
 
 multiverse::multiverse() {	

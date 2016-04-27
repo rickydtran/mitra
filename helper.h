@@ -14,6 +14,7 @@ int minimum(int a, int b, int c) {
 	return min;
 }
 
+//BINARY SEARCH ALGORITHM USED TO GET THE MAX INCANTATIONS
 int binarySearch(int *x, int *y, int left, int right, int val) {
 	while(right - left > 1) {
 		int m = left + (right - left) / 2;
