@@ -16,7 +16,13 @@
 * ~~Stop Short Path Algorithm when destination is reached. Right now it computes incantations to all realms. Source to all destination~~
 * ~~REVISION: Don't need path anymore. Compute gems necessary in realtime with Short Path Alg.~~  ~~Store pathway from source to destination from from Short Path Algorithm~~ 
 * Implement Heap to Lower Time Complexity of Short Path Algorithm
-* Modify find max subsequence function to actually return the subsequence
+* ~~REVISION: Subsequence gets it's own array. Also modified function 
+with a binary search to increase performance.~~ ~~Modify find max 
+subsequence 
+function to actually 
+return 
+the 
+subsequence~~
 * ~~Use hash map for string lookup pointer retrieval. Reduces lookup from O(n) to constant time~~
 
 # <a name="lore"></a>LORE
