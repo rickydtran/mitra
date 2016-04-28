@@ -35,14 +35,14 @@ int main(void) {
 	int stdgems = dest->getUsedGems();
 	int dts = realms.pathOfLeastIncantations(dest, src);
 	int dtsgems = src->getUsedGems();
-	//IMPOSSIBLE CHECK. IF RETURN VALUE OF STD OR DTS IS INT_MAX (INFINITY) RETURN IMPOSSIBLE		
-	if(std == INT_MAX && dts == INT_MAX) {
+	//IMPOSSIBLE CHECK. IF RETURN VALUE OF STD OR DTS IS INF (INFINITY) RETURN IMPOSSIBLE		
+	if(std == INF && dts == INF) {
 		std::cout << "IMPOSSIBLE" << std::endl << "IMPOSSIBLE" << std::endl;
 	}	
-	else if(std == INT_MAX) {
+	else if(std == INF) {
 		std::cout << "IMPOSSIBLE" << std::endl << dts << ' ' << dtsgems << std::endl;		
 	}
-	else if(dts == INT_MAX) {
+	else if(dts == INF) {
 		std::cout << std << ' ' << stdgems << std::endl << "IMPOSSIBLE" << std::endl;
 	}	
 	else {

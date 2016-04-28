@@ -1,11 +1,12 @@
 //INCLUDE GUARD
 #ifndef MULTIVERSE_H
 #define MULTIVERSE_H
-#define INT_MAX 2147483647
+#define INF 2147483647
 
 //INCLUDED DEPENDENCIES
 #include <vector>
 #include <unordered_map>
+//#include "heap.h"
 
 //FORWARD DECLARED DEPENDENCIES
 class realm;
@@ -19,10 +20,12 @@ private:
 public:
 	void addRealm(realm *x);
 	realm *getRealm(std::string str);
+	std::vector<realm*> getRealms(void);	
 	void generateAdjLists(void);
 	void printRealms(void);
 	void goToTest(void);
 	realm *minDistance(void);
+	bool compare(realm *a, realm *b);
 	int pathOfLeastIncantations(realm *src, realm *dest);
 	multiverse();
 };
@@ -57,6 +60,10 @@ realm *multiverse::getRealm(std::string str) {
 	else {
 		return it->second;
 	}
+}
+
+std::vector<realm*> multiverse::getRealms(void) {
+	return this->realms;
 }
 
 /*FUNCTION USED TO GENERATE THE ADJACENCY LISTS FOR EACH OF THE REALMS. THIS IS NECESSARY DUE
@@ -123,7 +130,7 @@ TODO: MODIFY WITH THE USE OF A BINARY HEAP TO REDUCE TIME COMPLEXITY TO O(N+ELOG
 //HELPER FUNCTION USED TO FIND THE VERTEX OR REALM THAT HAS NOT BEEN VISTED AND HAS A DISTANCE THAT IS 
 //CURRENTLY LESS THAN THE CURRENT MINIMUM VALUE. ONCE HEAP IS IMPLEMENTED THIS FUNCTION IS NO LONGER NECESSARY
 realm *multiverse::minDistance(void) {
-	int min = INT_MAX;
+	int min = INF;
 	realm *ptr = NULL;
 	for(unsigned int i = 0; i < this->realms.size(); i++) {
 		if(this->realms[i]->getVisited() == false && this->realms[i]->getDistFromSrc() <= min) {
@@ -137,11 +144,13 @@ realm *multiverse::minDistance(void) {
 	return ptr;
 }
 
-//FUNCTION THAT GETS THE LEAST NUMBER OF INCANTATIONS FROM ONE REALM TO ANOTHER. IF IMPOSSIBLE RETURNS INT_MAX
+/*FUNCTION THAT GETS THE LEAST NUMBER OF INCANTATIONS FROM ONE REALM TO ANOTHER. IF IMPOSSIBLE RETURNS INF
+OLD. REVISION WILL BE ONE THAT USES A BINARY MIN HEAP TO LOWER TIME COMPLEXITY
+*/
 int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 	for(unsigned int i = 0; i < this->realms.size(); i++) {
 		this->realms[i]->setVisited(false);
-		this->realms[i]->setDistFromSrc(INT_MAX);
+		this->realms[i]->setDistFromSrc(INF);
 		this->realms[i]->setUsedGems(0);
 	}
 	src->setDistFromSrc(0);
@@ -158,7 +167,7 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 		ptr->setVisited(true);		
 		temp = ptr->getAdjList();
 		for(unsigned int j = 0; j < temp.size(); j++) {
-			if(!temp[j]->getDest()->getVisited() && ptr->getDistFromSrc() != INT_MAX && (temp[j]->getDest()->getDistFromSrc() > (ptr->getDistFromSrc() + temp[j]->getWeight()))) {
+			if(!temp[j]->getDest()->getVisited() && ptr->getDistFromSrc() != INF && (temp[j]->getDest()->getDistFromSrc() > (ptr->getDistFromSrc() + temp[j]->getWeight()))) {
 				temp[j]->getDest()->setDistFromSrc(ptr->getDistFromSrc() + temp[j]->getWeight());
 				temp[j]->getDest()->setUsedGems(ptr->getUsedGems() + temp[j]->getGems());						
 			}			
@@ -170,8 +179,44 @@ int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
 			continue;
 		}
 	}
-	return INT_MAX;	
+	return INF;	
 }
+
+// int multiverse::pathOfLeastIncantations(realm *src, realm *dest) {
+// 	for(unsigned int i = 0; i < this->realms.size(); i++) {
+// 		this->realms[i]->setVisited(false);
+// 		this->realms[i]->setDistFromSrc(INF);
+// 		this->realms[i]->setUsedGems(0);
+// 	}
+// 	minHeap heap(this->realms);
+// 	src->setDistFromSrc(0);
+// 	std::vector<edge*> temp;
+// 	while(!heap.isHeapEmpty()) {
+// 		realm *min = heap.extractMin();
+// 		std::cout << min->getCharm() << min->heapindex << std::endl;
+// 		min->setVisited(true);
+// 		temp = min->getAdjList();
+// 		for(unsigned int i = 0; i < temp.size(); i++) {
+// 			if(!temp[i]->getDest()->getVisited() && min->getDistFromSrc() != INF && (temp[i]->getDest()->getDistFromSrc() > (min->getDistFromSrc() + temp[i]->getWeight()))) {
+// 				temp[i]->getDest()->setDistFromSrc(min->getDistFromSrc() + temp[i]->getWeight());
+// 				temp[i]->getDest()->setUsedGems(min->getUsedGems() + temp[i]->getGems());
+// 				int pos =  temp[i]->getDest()->heapindex;
+// 				heap.bubbleUp(pos);
+// 				//heap.decreaseKey(temp[i]->getDest());			
+// 			}
+// 			else {
+// 				continue;
+// 			}
+// 		}
+// 		if(min == dest) {
+// 			return min->getDistFromSrc();
+// 		}
+// 		else {
+// 			continue;
+// 		}
+// 	}
+// 	return INF;
+// }
 
 multiverse::multiverse() {	
 };
